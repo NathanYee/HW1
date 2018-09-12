@@ -4,9 +4,9 @@ module demorgan_test (); // nA and nB
 
   // Instantiate device/module under test
   reg A, B;                // Primary test inputs
-  wire nA, nB, nAandnB, AorB, npAorB, nAornB, AandB, npAandB;    // Test outputs
+  wire nA, nB, AorB, AandB, nAandnB, npAorB, nAornB, npAandB;    // Test outputs
 
-  demorgan dut(A, B, nA, nB, nAandnB, AorB, npAorB, nAornB, AandB, npAandB);  // Module to be tested
+  demorgan dut(A, B, nA, nB, AorB, AandB, nAandnB, npAorB, nAornB, npAandB);  // Module to be tested
 
   // Run sequence of test stimuli
   initial begin

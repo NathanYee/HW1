@@ -1,28 +1,36 @@
 module demorgan       // nA and nB
 (
-  input  A,           // Single bit inputs
+  // Single bit inputs
+  input  A,           
   input  B,
-  output nA,          // Output intermediate complemented inputs
-  output nB,
+  
+  // Output intermediate complemented inputs
+  output nA,          // ~A
+  output nB,          // ~B
+  output AorB,        // A+B
+  output AandB,       // AB
   output nAandnB,     // Single bit output, (~A)*(~B)
-  output AorB,
   output npAorB,      // ~(A+B)
   output nAornB,      // ~A+~B
-  output AandB,       // AB
   output npAandB      // ~(AB)
 );
 
+  // wire all intermediate gates
   wire nA;
   wire nB;
   wire AorB;
   wire AandB;
-  not Ainv(nA, A);  	// Top inverter is named Ainv, takes signal A as input and produces signal nA
-  not Binv(nB, B);
-  and andgate(nAandnB, nA, nB); 	// AND gate produces nAandnB from nA and nB
-  or orgate(AorB, A, B);
-  not AorBinv(npAorB, AorB);
-  or orgate(nAornB, nA, nB);
-  and andgate(AandB, A, B);
-  not AandBinv(npAandB, AandB);
+
+  // compute wires
+  not Ainv(nA, A);  	       // ~A
+  not Binv(nB, B);           // ~B
+  or orgate(AorB, A, B);     // A+B
+  and andgate(AandB, A, B);  // AB
+
+  // compute demorgan outputs
+  and andgate(nAandnB, nA, nB);  // ~A~B
+  not AorBinv(npAorB, AorB);     // ~(A+B)
+  or orgate(nAornB, nA, nB);     // ~A+~B
+  not AandBinv(npAandB, AandB);  // ~(AB)
 
 endmodule
