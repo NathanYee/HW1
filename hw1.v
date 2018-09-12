@@ -6,7 +6,8 @@ module demorgan       // nA and nB
   output nB,
   output nAandnB,     // Single bit output, (~A)*(~B)
   output AorB,
-  output npAorB       // parentheses
+  output npAorB,      // ~(A+B)
+  output nAornB       // ~A+~B
 );
 
   wire nA;
@@ -17,5 +18,6 @@ module demorgan       // nA and nB
   wire AorB;
   or orgate(AorB, A, B);
   not AorBinv(npAorB, AorB);
+  or orgate(nAornB, nA, nB);
 
 endmodule
